@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denny Hultén — Creative Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* =====================================================
+   ACCENT COLOR — change to any color you like.
+   Current: #C4FF3C  (lime/chartreuse)
+   Other options:
+     #FF4433  red
+     #3366FF  blue
+     #FF8800  orange
+     #00CC77  green
+     #FF2D7C  pink
+   ===================================================== */
+:root{
+  --accent: #C4FF3C;
+
+  --bg: #EFEFED;
+  --text: #141412;
+  --mid: #797975;
+  --border: #DEDDDB;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3.5rem;background:rgba(239,239,237,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--mid);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover{color:var(--text)}
+
+/* HERO — split: text left, portrait right */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 36%;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;min-height:100vh;padding:8rem 3.5rem 4rem;position:relative}
+.hero-bg-text{position:absolute;top:50%;left:0;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(18rem,32vw,38rem);line-height:0.85;color:rgba(20,20,18,0.04);white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-0.02em}
+.hero-top{opacity:0;animation:up 0.6s ease-out 0.2s forwards}
+.hero-label{font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);font-weight:500}
+.hero-spacer{flex:1}
+.hero-content{position:relative;z-index:1;opacity:0;animation:up 0.7s ease-out 0.1s forwards}
+.hero-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(5rem,14vw,15rem);line-height:0.88;letter-spacing:-0.02em;text-transform:uppercase;color:var(--text)}
+.hero-name span{display:block;-webkit-text-stroke:2px var(--text);color:transparent}
+.hero-line{width:100%;height:1px;background:var(--border);margin:2rem 0;opacity:0;animation:up 0.5s ease-out 0.45s forwards}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;opacity:0;animation:up 0.6s ease-out 0.55s forwards}
+.hero-desc{font-size:1rem;font-weight:300;color:var(--mid);max-width:420px;line-height:1.75;font-style:italic}
+.hero-stats{display:flex;gap:3rem;flex-shrink:0}
+.st-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.5rem;color:var(--text);line-height:1;letter-spacing:-0.01em}
+.st-lbl{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid)}
+
+/* HERO RIGHT — portrait */
+.hero-right{position:relative;overflow:hidden}
+.hero-portrait{position:absolute;top:4rem;left:0;right:0;bottom:0;width:100%;height:calc(100% - 4rem);object-fit:cover;object-position:top center}
+
+/* WORK SECTION */
+.work{padding:0 3.5rem}
+.section-head{display:flex;justify-content:space-between;align-items:center;padding:5rem 0 2.5rem;border-top:1px solid var(--border)}
+.section-h{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3rem);text-transform:uppercase;letter-spacing:0.02em;color:var(--text)}
+.section-count{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);font-weight:600}
+
+/* CASE CARDS */
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:6rem}
+.case-card{position:relative;height:56vh;min-height:380px;overflow:hidden;outline:none}
+.card-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94)}
+.case-card:hover .card-img{transform:scale(1.07)}
+.card-veil{position:absolute;inset:0;background:rgba(10,10,8,0.76);transition:background 0.38s ease-out}
+.case-card:hover .card-veil{background:rgba(10,10,8,0.25)}
+.card-inner{position:absolute;inset:0;padding:2rem 2.25rem;display:flex;flex-direction:column;justify-content:space-between}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start}
+.card-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.5rem;color:var(--accent);line-height:1;opacity:0.2;transition:opacity 0.3s}
+.case-card:hover .card-num{opacity:1}
+.card-tag-pill{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(239,239,237,0.5);font-weight:600;border:1px solid rgba(239,239,237,0.15);padding:0.3rem 0.7rem;transition:border-color 0.3s,color 0.3s}
+.case-card:hover .card-tag-pill{border-color:rgba(196,255,60,0.4);color:rgba(196,255,60,0.85)}
+.card-tag{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(239,239,237,0.45);margin-bottom:0.4rem;transition:color 0.3s}
+.case-card:hover .card-tag{color:rgba(239,239,237,0.75)}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.85rem);color:#EFEFED;line-height:1.1;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:0.6rem}
+.card-cta{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;opacity:0;transform:translateX(-8px);transition:opacity 0.25s,transform 0.25s}
+.case-card:hover .card-cta{opacity:1;transform:translateX(0)}
+
+/* ABOUT */
+.about{padding:5rem 3.5rem;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.about-eye{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem;font-weight:600}
+.about h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3.5rem);text-transform:uppercase;letter-spacing:0.01em;line-height:1;margin-bottom:1.75rem;color:var(--text)}
+.about-intro{font-size:1rem;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:1rem;font-style:italic}
+.about-block{margin-bottom:2.5rem}
+.about-block:last-child{margin-bottom:0}
+.about-block-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--text);margin-bottom:0.75rem;border-left:2px solid var(--accent);padding-left:0.85rem}
+.about-block-text{font-size:0.95rem;line-height:1.85;font-weight:300;color:var(--mid)}
+
+/* CONTACT */
+.contact{border-top:1px solid var(--border);padding:5rem 3.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:3rem}
+.contact h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,8vw,9rem);text-transform:uppercase;letter-spacing:-0.01em;line-height:0.88;color:var(--text)}
+.contact h2 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--text)}
+.contact-sub{font-size:0.9rem;font-weight:300;color:var(--mid);font-style:italic;margin-top:1rem}
+.c-btns{display:flex;flex-direction:column;gap:0.75rem;align-items:flex-end}
+.c-btn{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;color:var(--text);text-decoration:none;padding:0.9rem 1.75rem;border:1.5px solid var(--border);transition:all 0.18s;white-space:nowrap}
+.c-btn:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+footer{border-top:1px solid var(--border);padding:1.5rem 3.5rem;display:flex;justify-content:space-between}
+footer span{font-size:0.7rem;color:var(--mid);letter-spacing:0.08em}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(10,10,8,0.65);opacity:0;pointer-events:none;transition:opacity 0.22s ease-out;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:3rem}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-box{background:var(--bg);width:100%;max-width:1100px;margin:auto;transform:translateY(22px);transition:transform 0.28s ease-out;position:relative;border:1px solid var(--border)}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-close{position:fixed;top:0;right:0;font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:var(--text);color:var(--bg);border:none;padding:1rem 1.5rem;cursor:pointer;z-index:1010;transition:background 0.15s}
+.modal-close:hover{background:#333}
+.modal-img{width:100%;height:52vh;object-fit:cover;display:block}
+.modal-hdr{padding:2.5rem 3rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:2rem}
+.modal-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:4rem;color:var(--accent);line-height:1;flex-shrink:0;background:var(--text);padding:0.1em 0.25em;margin-right:0.5rem}
+.modal-hdr-mid{flex:1}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.3rem,2.5vw,2rem);text-transform:uppercase;letter-spacing:0.02em;line-height:1.1;margin-bottom:0.4rem;color:var(--text)}
+.modal-period{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid)}
+.modal-tag{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;border:1.5px solid var(--border);padding:0.4rem 0.85rem;color:var(--mid);white-space:nowrap;align-self:flex-start}
+.modal-cols{display:grid;grid-template-columns:1fr 1fr}
+.modal-col{padding:2.5rem 3rem}
+.modal-col:first-child{border-right:1px solid var(--border)}
+.m-lbl{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;font-weight:700;border-left:2px solid var(--accent);padding-left:0.75rem}
+.m-product{font-size:0.95rem;line-height:1.85;font-weight:300;margin-bottom:2.5rem;color:var(--text)}
+.m-result{font-size:0.95rem;line-height:1.75;border-left:3px solid var(--accent);padding-left:1.25rem;color:var(--text);font-style:italic}
+.m-assign{list-style:none}
+.m-assign li{padding:1rem 0;border-bottom:1px solid var(--border)}
+.m-assign li:first-child{border-top:1px solid var(--border)}
+.m-assign strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:0.35rem}
+.m-assign p{font-size:0.9rem;line-height:1.75;font-weight:300;color:var(--mid)}
+.m-vids{padding:1.75rem 3rem;display:flex;gap:0.75rem;flex-wrap:wrap;border-top:1px solid var(--border)}
+.m-vid{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1.5px solid var(--border);padding:0.65rem 1.25rem;transition:all 0.15s;font-weight:700}
+.m-vid:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Denny Hultén</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-bg-text">DH</div>
+    <div class="hero-top">
+      <div class="hero-label">Creative Director · Live Event Production · Gothenburg, Sweden</div>
+    </div>
+    <div class="hero-spacer"></div>
+    <div class="hero-content">
+      <h1 class="hero-name">Denny<span>Hultén</span></h1>
+    </div>
+    <div class="hero-line"></div>
+    <div class="hero-foot">
+      <p class="hero-desc">Twenty years building experiences that move people — from national television to seven-country cultural programmes.</p>
+      <div class="hero-stats">
+        <div><div class="st-num">20+</div><div class="st-lbl">Years</div></div>
+        <div><div class="st-num">7</div><div class="st-lbl">Countries</div></div>
+        <div><div class="st-num">10K+</div><div class="st-lbl">Participants</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="images/denny.jpg" class="hero-portrait" alt="Denny Hultén">
+  </div>
+</section>
+
+<section id="work" style="padding:0 3.5rem">
+  <div class="section-head">
+    <h2 class="section-h">Selected Work</h2>
+    <span class="section-count">06 Cases</span>
+  </div>
+  <div class="cases-grid" id="cases-grid"></div>
+</section>
+
+<section class="about" id="about">
+  <div>
+    <div class="about-eye">About</div>
+    <h2>The work<br>behind<br>the work.</h2>
+    <p class="about-intro">Creative direction is not decoration. It is the difference between an event people attend and an event they remember — and between a client you win once and a client who stays.</p>
+    <p class="about-intro">I work at the intersection of strategy and production: building the narrative first, then the experience around it.</p>
+  </div>
+  <div>
+    <div class="about-block">
+      <div class="about-block-label">Background</div>
+      <p class="about-block-text">Swedish creative director with over 20 years in live event production. Started with Gothenburg Dance Festival — one of Scandinavia's largest urban expression competitions, 10,000+ participants across eight consecutive years. Expanded into international corporate events, live television, and national cultural programmes funded by the Swedish government.</p>
+    </div>
+    <div class="about-block">
+      <div class="about-block-label">Approach</div>
+      <p class="about-block-text">Every project starts with a single question: what is the real problem? Not the brief as stated, but the underlying need. The concept follows from that answer. When I reframe the problem correctly, the solution tends to be both simpler and more effective — and clients come back because of it.</p>
+    </div>
+    <div class="about-block">
+      <div class="about-block-label">Currently</div>
+      <p class="about-block-text">Delivering "Early Access" — a three-year international culture programme for Play'n GO across seven countries (Sweden, Spain, UK, Malta, Hungary, Poland, Philippines). Serving as creative director, concept architect, and on-stage host for all events. Based in Gothenburg, available for strategic creative and production briefs internationally.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div>
+    <h2>Let's<br><em>talk.</em></h2>
+    <p class="contact-sub">Gothenburg, Sweden · Available internationally</p>
+  </div>
+  <div class="c-btns">
+    <a href="mailto:dennyhulten@gmail.com" class="c-btn">dennyhulten@gmail.com</a>
+    <a href="https://www.linkedin.com/in/dennyhulten/" target="_blank" class="c-btn">View LinkedIn →</a>
+  </div>
+</section>
+
+<footer>
+  <span>Denny Hultén · Creative Director</span>
+  <span>Gothenburg, Sweden</span>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const CASES=[
+  {num:'01',title:'Länsförsäkringar Östgöta — Hälsoresan',img:'images/halsoresan.jpeg',period:'2024–2025',tag:'Wellness Strategy',
+   product:'Hälsoresan (The Health Journey) — a year-long employee wellness initiative for Länsförsäkringar Östgöta, culminating in a company retreat at Högfjällshotellet in Sälen. The client originally asked for a company retreat. Through discovery, I identified that the real need was sustained employee wellness across the full year, not a single event. Built the concept, pitched it, and won the client away from their incumbent supplier entirely on the strength of the idea.',
+   assignment:[
+     {label:'Concept creation',text:'Developed "Hälsoresan" around the principle that every participant\'s journey is unique. The organizing visual, The Health Compass, mapped four dimensions of health: Physical, Social, Emotional, and Psychological.'},
+     {label:'Visual direction',text:'Created the full visual direction and pitch deck without briefing a designer. Opened the pitch with vision, not logistics — the compass, Sälen\'s mountain landscape, the year-long arc.'},
+     {label:'Dual narrative strategy',text:'Designed two parallel narratives. For employees: purpose, inclusiveness, personal growth. For the steering board: projected reductions in sick leave, long-term cost savings, measurable health outcomes.'},
+     {label:'Inclusive activity design',text:'Applied a "golf handicap" principle: every activity designed so all participants could engage regardless of fitness level. No one excluded, no one behind.'},
+     {label:'Client empowerment',text:'Made a deliberate choice to let the client\'s internal project group own the success publicly. At the retreat, the internal team received a standing ovation — even though Eventity had done the creative heavy lifting.'}
+   ],
+   result:'Hälsoresan became the highest-earning and highest-profit project in Eventity\'s history. Won the client from their previous supplier purely on the concept and pitch.',videos:[]},
+  {num:'02',title:"Play'n GO International Events — Early Access",img:'images/playngo.png',period:'2026–Ongoing',tag:'7 Countries',
+   product:"Early Access — a three-year international culture program for Play'n GO, one of the world's leading iGaming software suppliers. 540 employees across seven countries (Sweden, Spain, UK, Malta, Hungary, Poland, Philippines), eight events per year across four locations, with a 90,000 EUR budget per event. The program uses gaming development metaphors to build a company-wide culture of self-leadership.",
+   assignment:[
+     {label:'Strategic reframe',text:"The client had been running employee events with declining participation. I reframed the problem: the events weren't failing because of execution — they were failing because they weren't designed around the people attending them."},
+     {label:'Master narrative',text:"Created \"Early Access,\" a three-year narrative arc using gaming development language native to Play'n GO's own product world. The metaphor wasn't decorative; it was structural."},
+     {label:'Visual concept',text:'Developed the cube/dice concept with visual designer Claes Moren. Six sides map to six "GO Getter" archetypes used as situational lenses in workshops.'},
+     {label:'Multi-stakeholder navigation',text:'CEO Johan Törnqvist (wheelchair user — requiring accessibility planning across all four countries), HR Director Martin Hökeröth, and regional teams across seven countries.'},
+     {label:'Pitch and close',text:'Presented the contrast between the old approach (generic events, declining engagement) and the new approach. Secured a three-year commitment.'},
+     {label:'Ongoing delivery',text:'Serving as moderator/host across all events, managing venue coordination across Malta, Budapest, Växjö, and Manila, directing entertainment (Poplabbet as touring band).'}
+   ],
+   result:'Three-year deal secured. Participation climbed to 95%+ across all activities. The program transformed from something employees attended out of obligation to something they actively engaged with.',videos:[]},
+  {num:'03',title:'Volvo Cars Product Launch EMEA & APAC',img:'images/volvo.jpeg',period:'2023',tag:'Product Launch',
+   product:"Entertainment programme for Volvo Cars' international product launch — two separate week-long events (EMEA, then APAC), 300 attendees from multiple countries and cultures. Core challenge: design a three-part entertainment story that lands regardless of language, cultural background, or country of origin.",
+   assignment:[
+     {label:'Cross-cultural entertainment',text:'Built a three-part entertainment narrative using visual storytelling, movement, and music — connecting without relying on language or local context.'},
+     {label:'Budget and concept ownership',text:'Full budget responsibility and concept development from brief to execution.'},
+     {label:'Digital content production',text:'Created supporting digital content that extended the entertainment narrative beyond the live moments.'},
+     {label:'On-site leadership',text:'Directed all entertainment across both week-long events — managing energy, pacing, and real-time adjustments for an audience experiencing a new product for the first time.'},
+     {label:'Broadcast-ready delivery',text:"Coordinated with the production team to ensure all content met broadcast standards and integrated with Volvo's wider launch materials."}
+   ],
+   result:'The EMEA concept was successful enough that Volvo brought it directly to APAC the following week — a repeat engagement based on results alone.',videos:[{label:'Compilation of Event Footage',url:'#'}]},
+  {num:'04',title:'Passion for Climate',img:'images/passion.jpeg',period:'2021',tag:'National Tour · Arvsfonden',
+   product:'Passion for Climate — a three-year national project merging climate science with live performance, funded by Svenska Allmänna Arvsfonden in collaboration with Chalmers University. The project toured Swedish schools with a theatre show, interactive workshops, and seminars. Featured multiple times at TEDx Gothenburg.',
+   assignment:[
+     {label:'Won the funding',text:"Led the application to Arvsfonden — wrote the project proposal that secured three years of government funding for a format that didn't exist yet."},
+     {label:'Wrote the theatre show',text:'Screenwriting for a stage production that translated climate research into narrative and movement — making science feel urgent without lecturing.'},
+     {label:'National tour planning',text:'Organised the logistics of touring schools across Sweden — scheduling, venues, travel, and adapting the show for different environments.'},
+     {label:'Choreography and workshops',text:'Created choreography and designed interactive workshops where students responded to climate themes through movement and expression.'},
+     {label:'Team and stakeholder management',text:'Recruited and mentored artists, managed budget and scheduling, reported to Arvsfonden and Chalmers University.'}
+   ],
+   result:'Three-year national programme delivered. Reached schools across Sweden. Featured at TEDx Göteborg multiple times. Fully funded by Arvsfonden in partnership with Chalmers University.',videos:[{label:'Theatre show',url:'#'},{label:'TEDx talk',url:'#'},{label:'Instagram',url:'#'}]},
+  {num:'05',title:'P3 Guld — Cleo Show',img:'images/p3guld.jpeg',period:'2023',tag:'Live Television',
+   product:'Co-produced the P3 Guld 2023 gala performance featuring Cleo — Tjejerna, tjejerna, tjejerna for live national television broadcast. A single performance that needed to work simultaneously for two different audiences: the live crowd in the venue and viewers watching at home.',
+   assignment:[
+     {label:'Concept development',text:'Built the visual and narrative concept — integrating music, choreography, and staging into a single piece that told a story, not just accompanied a song.'},
+     {label:'Choreography',text:'Designed all movement — choreography that read both on the venue floor and through camera angles, which require different spatial thinking.'},
+     {label:'Performance coaching',text:'Worked directly with talent to shape delivery, energy, and stage presence for the dual live/broadcast context.'},
+     {label:'TV production collaboration',text:'Coordinated with TV producers, directors, and camera teams on shot design, timing, and transitions.'}
+   ],
+   result:'Delivered on live national television. The performance worked as both a venue experience and a broadcast production — two fundamentally different contexts served by one show.',videos:[{label:'Broadcast video',url:'#'}]},
+  {num:'06',title:'Gothenburg Dance Festival',img:'images/gothenburg.jpg',period:'2009–2017',tag:'Festival Production',
+   product:"Co-created and produced Gothenburg Dance Festival — one of Scandinavia's largest urban expression competitions. 10,000+ spectators and participants across 8 consecutive years as part of the Gothenburg City Culture Festival. Battles, showcases, international guest artists, summer camps, jams, and after-parties.",
+   assignment:[
+     {label:'Competition format design',text:'Built the competition structure from scratch — categories, judging criteria, qualification rounds, finals format. Refined annually based on participant feedback.'},
+     {label:'International artist booking',text:'Curated and booked international dancers, judges, and workshop leaders — building relationships with the global urban dance community.'},
+     {label:'Community development',text:"The festival wasn't just an event; it was infrastructure for a scene. Built partnerships with Gothenburg's cultural institutions, nurtured local talent pipelines."},
+     {label:'Multi-venue production',text:'Managed production across multiple stages and venues within the Culture Festival framework.'},
+     {label:'Media and content production',text:"Produced trailers, documentation, and promotional content to extend the festival's reach beyond the live audience."}
+   ],
+   result:"10,000+ spectators and participants per year. Eight consecutive editions. Grew from a local competition into one of Scandinavia's largest urban expression events.",videos:[{label:'Dance Festival Trailer',url:'#'}]}
+];
+
+function renderCases(){
+  document.getElementById('cases-grid').innerHTML=CASES.map((c,i)=>`
+    <div class="case-card" onclick="openModal(${i})" tabindex="0" role="button" onkeydown="if(event.key==='Enter')openModal(${i})" aria-label="${c.title}">
+      <div class="card-img" style="background-image:url('${c.img}')"></div>
+      <div class="card-veil"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-num">${c.num}</span>
+          <span class="card-tag-pill">${c.period}</span>
+        </div>
+        <div>
+          <div class="card-tag">${c.tag}</div>
+          <h3 class="card-title">${c.title}</h3>
+          <span class="card-cta">View case →</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function openModal(i){
+  const c=CASES[i];
+  const aHTML=c.assignment.map(a=>`<li><strong>${a.label}</strong><p>${a.text}</p></li>`).join('');
+  const vHTML=c.videos.length?`<div class="m-vids">${c.videos.map(v=>`<a href="${v.url}" class="m-vid" target="_blank">▶ ${v.label}</a>`).join('')}</div>`:'';
+  document.getElementById('modal-content').innerHTML=`
+    <img class="modal-img" src="${c.img}" alt="${c.title}">
+    <div class="modal-hdr">
+      <div class="modal-num">${c.num}</div>
+      <div class="modal-hdr-mid"><div class="modal-title">${c.title}</div><div class="modal-period">${c.period}</div></div>
+      <div class="modal-tag">${c.tag}</div>
+    </div>
+    <div class="modal-cols">
+      <div class="modal-col">
+        <div class="m-lbl">The Project</div>
+        <p class="m-product">${c.product}</p>
+        <div class="m-lbl">Result</div>
+        <p class="m-result">${c.result}</p>
+      </div>
+      <div class="modal-col">
+        <div class="m-lbl">My Role</div>
+        <ul class="m-assign">${aHTML}</ul>
+      </div>
+    </div>${vHTML}`;
+  const o=document.getElementById('modal');
+  o.classList.add('open');o.scrollTop=0;document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function handleOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+renderCases();
+</script>
+</body>
+</html>

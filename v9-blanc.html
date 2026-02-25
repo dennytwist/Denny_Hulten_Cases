@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denny Hultén — Creative Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#FFFFFF;--text:#1A1A1A;--accent:#E8352C;--mid:#888;--border:#E8E8E8;--soft:#F7F7F7}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;cursor:none}
+a,button{cursor:none}
+
+/* CURSOR */
+.c-dot{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.15s;top:-20px;left:-20px}
+.c-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(232,53,44,0.2);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left 0.13s ease-out,top 0.13s ease-out,width 0.22s,height 0.22s,border-color 0.2s;top:-20px;left:-20px}
+body.ch .c-ring{width:48px;height:48px;border-color:rgba(232,53,44,0.5)}
+body.ch .c-dot{transform:translate(-50%,-50%) scale(0.5)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.35rem 3.5rem;background:var(--bg);border-bottom:1px solid var(--border)}
+.nav-name{font-family:'Libre Baskerville',serif;font-size:0.9rem;font-weight:700;letter-spacing:0.02em;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:0.67rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--mid);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover{color:var(--accent)}
+
+/* HERO */
+.hero{padding:9rem 3.5rem 0;max-width:1440px;margin:0 auto}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;margin-bottom:3rem}
+.hero-left{flex:1}
+.hero-eyebrow{font-size:0.65rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--accent);margin-bottom:1.75rem;font-weight:500;opacity:0;animation:up 0.6s ease-out 0.15s forwards}
+.hero-name{font-family:'Libre Baskerville',serif;font-size:clamp(4rem,10.5vw,11rem);line-height:0.9;font-weight:700;letter-spacing:-0.025em;opacity:0;animation:up 0.75s ease-out 0.25s forwards}
+.hero-name em{font-style:italic;font-weight:400}
+.hero-right{max-width:320px;padding-bottom:1rem;opacity:0;animation:up 0.6s ease-out 0.4s forwards;flex-shrink:0}
+.hero-desc{font-size:0.95rem;font-weight:300;color:var(--mid);line-height:1.8;margin-bottom:1.5rem}
+.hero-stats{display:flex;flex-direction:column;gap:0.8rem}
+.h-stat{display:flex;align-items:baseline;gap:0.75rem}
+.h-stat-num{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-weight:700;color:var(--text)}
+.h-stat-lbl{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid)}
+.hero-line{width:100%;height:1px;background:var(--border);opacity:0;animation:up 0.5s ease-out 0.5s forwards;margin-bottom:0}
+
+/* WORK */
+.work{max-width:1440px;margin:0 auto;padding:0 3.5rem}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;padding:3.5rem 0 2rem;border-top:1px solid var(--border)}
+.section-h{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-style:italic;font-weight:400}
+.section-count{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--mid)}
+
+/* FEATURED CARD */
+.cases-featured{position:relative;height:62vh;min-height:420px;overflow:hidden;margin-bottom:3px;outline:none}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:6rem}
+/* 5 items in 3-col: last one spans 1 col only, leaving gaps — let's use col-span on last */
+.case-card-sm:last-child{grid-column:span 1}
+
+/* SHARED CARD STYLES */
+.case-card-sm,.cases-featured{cursor:none}
+.card-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.62s cubic-bezier(0.25,0.46,0.45,0.94)}
+.cases-featured:hover .card-img,.case-card-sm:hover .card-img{transform:scale(1.05)}
+.card-dim{position:absolute;inset:0;background:rgba(20,20,20,0.28);transition:background 0.3s}
+.cases-featured:hover .card-dim,.case-card-sm:hover .card-dim{background:rgba(20,20,20,0.12)}
+.card-accent-bar{position:absolute;bottom:0;left:0;width:0;height:3px;background:var(--accent);transition:width 0.38s ease-out}
+.cases-featured:hover .card-accent-bar,.case-card-sm:hover .card-accent-bar{width:100%}
+.card-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:2rem 2.25rem}
+.card-num{font-family:'Libre Baskerville',serif;font-size:0.65rem;font-style:italic;color:rgba(255,255,255,0.65)}
+.card-meta{transform:translateY(14px);opacity:0;transition:transform 0.32s ease-out 0.04s,opacity 0.32s ease-out 0.04s}
+.cases-featured:hover .card-meta,.case-card-sm:hover .card-meta{transform:translateY(0);opacity:1}
+.card-tag{font-size:0.57rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:0.4rem}
+.card-title-featured{font-family:'Libre Baskerville',serif;font-size:clamp(1.5rem,3.5vw,3rem);color:#fff;line-height:1.1;font-weight:700;margin-bottom:0.65rem}
+.card-title-sm{font-family:'Libre Baskerville',serif;font-size:clamp(0.9rem,1.6vw,1.3rem);color:#fff;line-height:1.12;font-weight:700;margin-bottom:0.55rem}
+.card-cta{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.9);font-weight:500}
+
+/* SMALL CARDS */
+.case-card-sm{position:relative;height:42vh;min-height:300px;overflow:hidden;outline:none}
+
+/* ABOUT */
+.about{max-width:1440px;margin:0 auto;padding:5rem 3.5rem;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.about-eye{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;font-weight:500}
+.about h2{font-family:'Libre Baskerville',serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:700;line-height:1.1;margin-bottom:1.75rem;letter-spacing:-0.015em}
+.about p{font-size:0.92rem;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:1rem}
+.skill-list{list-style:none}
+.skill-list li{display:flex;justify-content:space-between;align-items:center;padding:0.9rem 0;border-bottom:1px solid var(--border);font-size:0.84rem;transition:color 0.15s}
+.skill-list li:first-child{border-top:1px solid var(--border)}
+.skill-list li:hover{color:var(--accent)}
+.s-dot{width:5px;height:5px;border-radius:50%;background:var(--border);transition:background 0.15s;flex-shrink:0}
+.skill-list li:hover .s-dot{background:var(--accent)}
+
+/* CONTACT */
+.contact{border-top:1px solid var(--border);max-width:1440px;margin:0 auto;padding:5rem 3.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:3rem}
+.contact-left h2{font-family:'Libre Baskerville',serif;font-size:clamp(3rem,6.5vw,7rem);font-weight:700;letter-spacing:-0.03em;line-height:0.88;margin-bottom:0.75rem}
+.contact-left h2 em{font-style:italic;color:var(--accent)}
+.contact-sub{font-size:0.82rem;font-weight:300;color:var(--mid)}
+.c-btns{display:flex;flex-direction:column;gap:0.75rem;align-items:flex-end}
+.c-btn{font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;color:var(--text);text-decoration:none;padding:0.85rem 1.75rem;border:1px solid var(--border);transition:all 0.18s;white-space:nowrap}
+.c-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:1.5rem 3.5rem;max-width:1440px;margin:0 auto;display:flex;justify-content:space-between}
+footer span{font-size:0.6rem;color:var(--mid);letter-spacing:0.06em}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(20,20,20,0.6);opacity:0;pointer-events:none;transition:opacity 0.22s ease-out;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:3rem}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-box{background:var(--bg);width:100%;max-width:1100px;margin:auto;transform:translateY(22px);transition:transform 0.28s ease-out;position:relative}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-close{position:fixed;top:0;right:0;font-family:'Outfit',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:1rem 1.5rem;cursor:none;z-index:1010;transition:background 0.15s}
+.modal-close:hover{background:#c42920}
+.modal-img{width:100%;height:55vh;object-fit:cover;display:block}
+.modal-hdr{padding:2.5rem 3.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:2.5rem}
+.modal-num{font-family:'Libre Baskerville',serif;font-size:3.5rem;color:var(--accent);line-height:1;flex-shrink:0;font-style:italic}
+.modal-hdr-mid{flex:1}
+.modal-title{font-family:'Libre Baskerville',serif;font-size:clamp(1.2rem,2.5vw,2.2rem);font-weight:700;line-height:1.15;margin-bottom:0.4rem;letter-spacing:-0.01em}
+.modal-period{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid)}
+.modal-tag{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;border:1px solid var(--border);padding:0.4rem 0.85rem;color:var(--mid);white-space:nowrap;align-self:flex-start}
+.modal-cols{display:grid;grid-template-columns:1fr 1fr}
+.modal-col{padding:2.5rem 3.5rem}
+.modal-col:first-child{border-right:1px solid var(--border)}
+.m-lbl{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;font-weight:500}
+.m-product{font-size:0.9rem;line-height:1.85;font-weight:300;margin-bottom:2.5rem}
+.m-result{font-size:0.9rem;line-height:1.75;font-family:'Libre Baskerville',serif;font-style:italic;border-left:3px solid var(--accent);padding-left:1.25rem}
+.m-assign{list-style:none}
+.m-assign li{padding:1rem 0;border-bottom:1px solid var(--border)}
+.m-assign li:first-child{border-top:1px solid var(--border)}
+.m-assign strong{display:block;font-family:'Libre Baskerville',serif;font-size:0.9rem;font-weight:700;margin-bottom:0.35rem}
+.m-assign p{font-size:0.84rem;line-height:1.75;font-weight:300;color:var(--mid)}
+.m-vids{padding:1.75rem 3.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;border-top:1px solid var(--border)}
+.m-vid{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1px solid var(--border);padding:0.65rem 1.25rem;transition:all 0.15s;font-weight:500}
+.m-vid:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="c-dot" id="cdot"></div>
+<div class="c-ring" id="cring"></div>
+
+<nav>
+  <a href="#" class="nav-name">Denny Hultén</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-row">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Creative Director · Live Event Production</div>
+      <h1 class="hero-name">Denny<br><em>Hultén.</em></h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc">Twenty years conceiving and delivering live experiences at international scale. From national television to seven-country cultural programmes.</p>
+      <div class="hero-stats">
+        <div class="h-stat"><span class="h-stat-num">20+</span><span class="h-stat-lbl">Years producing</span></div>
+        <div class="h-stat"><span class="h-stat-num">7</span><span class="h-stat-lbl">Countries at once</span></div>
+        <div class="h-stat"><span class="h-stat-num">10K+</span><span class="h-stat-lbl">Live participants</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+</section>
+
+<section class="work" id="work">
+  <div class="section-head">
+    <h2 class="section-h">Selected Work</h2>
+    <span class="section-count">06 Cases</span>
+  </div>
+  <div id="featured-case"></div>
+  <div class="cases-grid" id="cases-grid"></div>
+</section>
+
+<section class="about" id="about">
+  <div>
+    <div class="about-eye">About</div>
+    <h2>The work<br>behind<br>the work.</h2>
+    <p>Creative direction is not decoration. It is the difference between an event people attend and an event they remember.</p>
+    <p>I work at the intersection of strategy and production: building the narrative first, then the experience around it. Based in Gothenburg, delivering internationally.</p>
+  </div>
+  <ul class="skill-list">
+    <li>Concept development &amp; pitching <span class="s-dot"></span></li>
+    <li>International live event production <span class="s-dot"></span></li>
+    <li>Cross-cultural entertainment design <span class="s-dot"></span></li>
+    <li>Multi-stakeholder project management <span class="s-dot"></span></li>
+    <li>Creative direction — end to end <span class="s-dot"></span></li>
+    <li>Broadcast &amp; television production <span class="s-dot"></span></li>
+    <li>Employee experience programmes <span class="s-dot"></span></li>
+  </ul>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <h2>Let's<br><em>talk.</em></h2>
+    <p class="contact-sub">Gothenburg, Sweden · Available internationally</p>
+  </div>
+  <div class="c-btns">
+    <a href="mailto:dennyhulten@gmail.com" class="c-btn">dennyhulten@gmail.com</a>
+    <a href="https://www.linkedin.com/in/dennyhulten/" target="_blank" class="c-btn">View LinkedIn →</a>
+  </div>
+</section>
+
+<footer>
+  <span>Denny Hultén · Creative Director</span>
+  <span>Gothenburg, Sweden</span>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const CASES=[
+  {num:'01',title:'Länsförsäkringar Östgöta — Hälsoresan',img:'images/halsoresan.jpeg',period:'2024–2025',tag:'Wellness Strategy',
+   product:'Hälsoresan (The Health Journey) — a year-long employee wellness initiative for Länsförsäkringar Östgöta, culminating in a company retreat at Högfjällshotellet in Sälen. The client originally asked for a company retreat. Through discovery, I identified that the real need was sustained employee wellness across the full year, not a single event. Built the concept, pitched it, and won the client away from their incumbent supplier entirely on the strength of the idea.',
+   assignment:[
+     {label:'Concept creation',text:'Developed "Hälsoresan" around the principle that every participant\'s journey is unique. The organizing visual, The Health Compass, mapped four dimensions of health: Physical, Social, Emotional, and Psychological.'},
+     {label:'Visual direction',text:'Created the full visual direction and pitch deck without briefing a designer. Opened the pitch with vision, not logistics.'},
+     {label:'Dual narrative strategy',text:'Designed two parallel narratives. For employees: purpose, inclusiveness, personal growth. For the steering board: projected reductions in sick leave, long-term cost savings, measurable health outcomes.'},
+     {label:'Inclusive activity design',text:'Applied a "golf handicap" principle: every activity designed so all participants could engage regardless of fitness level. No one excluded, no one behind.'},
+     {label:'Client empowerment',text:'Made a deliberate choice to let the client\'s internal project group own the success publicly. At the retreat, the internal team received a standing ovation.'}
+   ],
+   result:'Hälsoresan became the highest-earning and highest-profit project in Eventity\'s history. Won the client from their previous supplier purely on the concept and pitch.',videos:[]},
+  {num:'02',title:"Play'n GO International Events — Early Access",img:'images/playngo.png',period:'2026–Ongoing',tag:'7 Countries',
+   product:"Early Access — a three-year international culture program for Play'n GO, one of the world's leading iGaming software suppliers. 540 employees across seven countries, eight events per year across four locations, with a 90,000 EUR budget per event.",
+   assignment:[
+     {label:'Strategic reframe',text:"The client had been running employee events with declining participation. I reframed the problem: the events weren't failing because of execution — they were failing because they weren't designed around the people."},
+     {label:'Master narrative',text:"Created \"Early Access,\" a three-year narrative arc using gaming development language native to Play'n GO's product world. The metaphor wasn't decorative; it was structural."},
+     {label:'Visual concept',text:'Developed the cube/dice concept with visual designer Claes Moren. Six sides map to six "GO Getter" archetypes.'},
+     {label:'Multi-stakeholder navigation',text:'CEO Johan Törnqvist (wheelchair user — requiring accessibility planning across all four countries), HR Director Martin Hökeröth, and regional teams.'},
+     {label:'Pitch and close',text:'Presented contrast between the old approach and the new. Secured a three-year commitment.'},
+     {label:'Ongoing delivery',text:'Serving as moderator/host across all events, managing venue coordination across Malta, Budapest, Växjö, and Manila.'}
+   ],
+   result:'Three-year deal secured. Participation climbed to 95%+ across all activities. Transformed from something employees attended out of obligation to something they actively engaged with.',videos:[]},
+  {num:'03',title:'Volvo Cars Product Launch EMEA & APAC',img:'images/volvo.jpeg',period:'2023',tag:'Product Launch',
+   product:"Entertainment programme for Volvo Cars' international product launch — two separate week-long events (EMEA, then APAC), 300 attendees from multiple countries and cultures. Core challenge: design a three-part entertainment story that lands regardless of language, cultural background, or country of origin.",
+   assignment:[
+     {label:'Cross-cultural entertainment',text:'Built a three-part entertainment narrative using visual storytelling, movement, and music — connecting without relying on language or local context.'},
+     {label:'Budget and concept ownership',text:'Full budget responsibility and concept development from brief to execution.'},
+     {label:'Digital content production',text:'Created supporting digital content that extended the entertainment narrative beyond the live moments.'},
+     {label:'On-site leadership',text:'Directed all entertainment across both week-long events — managing energy, pacing, and real-time adjustments.'},
+     {label:'Broadcast-ready delivery',text:"Coordinated with the production team to ensure all content met broadcast standards."}
+   ],
+   result:'The EMEA concept was successful enough that Volvo brought it directly to APAC the following week — a repeat engagement based on results alone.',videos:[{label:'Compilation of Event Footage',url:'#'}]},
+  {num:'04',title:'Passion for Climate',img:'images/passion.jpeg',period:'2021',tag:'National Tour · Arvsfonden',
+   product:'Passion for Climate — a three-year national project merging climate science with live performance, funded by Svenska Allmänna Arvsfonden in collaboration with Chalmers University. Toured Swedish schools with a theatre show, interactive workshops, and seminars. Featured multiple times at TEDx Gothenburg.',
+   assignment:[
+     {label:'Won the funding',text:"Led the application to Arvsfonden — wrote the project proposal that secured three years of government funding."},
+     {label:'Wrote the theatre show',text:'Screenwriting for a stage production that translated climate research into narrative and movement.'},
+     {label:'National tour planning',text:'Organised the logistics of touring schools across Sweden — scheduling, venues, travel.'},
+     {label:'Choreography and workshops',text:'Created choreography and designed interactive workshops where students responded to climate themes.'},
+     {label:'Team and stakeholder management',text:'Recruited and mentored artists, managed budget, reported to Arvsfonden and Chalmers University.'}
+   ],
+   result:'Three-year national programme delivered. Reached schools across Sweden. Featured at TEDx Göteborg multiple times. Fully funded by Arvsfonden in partnership with Chalmers University.',videos:[{label:'Theatre show',url:'#'},{label:'TEDx talk',url:'#'},{label:'Instagram',url:'#'}]},
+  {num:'05',title:'P3 Guld — Cleo Show',img:'images/p3guld.jpeg',period:'2023',tag:'Live Television',
+   product:'Co-produced the P3 Guld 2023 gala performance featuring Cleo for live national television broadcast. A single performance that needed to work for two audiences simultaneously: the live crowd and viewers at home.',
+   assignment:[
+     {label:'Concept development',text:'Built the visual and narrative concept — integrating music, choreography, and staging into a single coherent piece.'},
+     {label:'Choreography',text:'Designed all movement — choreography that read both on the venue floor and through camera angles.'},
+     {label:'Performance coaching',text:'Worked directly with talent to shape delivery and stage presence for the dual live/broadcast context.'},
+     {label:'TV production collaboration',text:'Coordinated with TV producers, directors, and camera teams on shot design, timing, and transitions.'}
+   ],
+   result:'Delivered on live national television. The performance worked as both a venue experience and a broadcast production — two fundamentally different contexts served by one show.',videos:[{label:'Broadcast video',url:'#'}]},
+  {num:'06',title:'Gothenburg Dance Festival',img:'images/gothenburg.jpg',period:'2009–2017',tag:'Festival Production',
+   product:"Co-created and produced Gothenburg Dance Festival — one of Scandinavia's largest urban expression competitions. 10,000+ spectators and participants across 8 consecutive years as part of the Gothenburg City Culture Festival.",
+   assignment:[
+     {label:'Competition format design',text:'Built the competition structure from scratch — categories, judging criteria, qualification rounds, finals format.'},
+     {label:'International artist booking',text:'Curated and booked international dancers, judges, and workshop leaders.'},
+     {label:'Community development',text:"The festival was infrastructure for a scene. Built partnerships with Gothenburg's cultural institutions, nurtured local talent pipelines."},
+     {label:'Multi-venue production',text:'Managed production across multiple stages and venues within the Culture Festival framework.'},
+     {label:'Media and content production',text:"Produced trailers, documentation, and promotional content to extend the festival's reach."}
+   ],
+   result:"10,000+ spectators and participants per year. Eight consecutive editions. Grew from a local competition into one of Scandinavia's largest urban expression events.",videos:[{label:'Dance Festival Trailer',url:'#'}]}
+];
+
+function cardInner(c,i,isFeatured){
+  const titleClass=isFeatured?'card-title-featured':'card-title-sm';
+  return `
+    <div class="card-img" style="background-image:url('${c.img}')"></div>
+    <div class="card-dim"></div>
+    <div class="card-accent-bar"></div>
+    <div class="card-inner">
+      <span class="card-num">${c.num}</span>
+      <div class="card-meta">
+        <div class="card-tag">${c.tag} · ${c.period}</div>
+        <h3 class="${titleClass}">${c.title}</h3>
+        <span class="card-cta">View case →</span>
+      </div>
+    </div>`;
+}
+
+function renderCases(){
+  const fc=CASES[0];
+  document.getElementById('featured-case').innerHTML=`
+    <div class="cases-featured" onclick="openModal(0)" tabindex="0" role="button" onkeydown="if(event.key==='Enter')openModal(0)" aria-label="${fc.title}">
+      ${cardInner(fc,0,true)}
+    </div>`;
+
+  document.getElementById('cases-grid').innerHTML=CASES.slice(1).map((c,j)=>`
+    <div class="case-card-sm" onclick="openModal(${j+1})" tabindex="0" role="button" onkeydown="if(event.key==='Enter')openModal(${j+1})" aria-label="${c.title}">
+      ${cardInner(c,j+1,false)}
+    </div>`).join('');
+}
+
+function openModal(i){
+  const c=CASES[i];
+  const aHTML=c.assignment.map(a=>`<li><strong>${a.label}</strong><p>${a.text}</p></li>`).join('');
+  const vHTML=c.videos.length?`<div class="m-vids">${c.videos.map(v=>`<a href="${v.url}" class="m-vid" target="_blank">▶ ${v.label}</a>`).join('')}</div>`:'';
+  document.getElementById('modal-content').innerHTML=`
+    <img class="modal-img" src="${c.img}" alt="${c.title}">
+    <div class="modal-hdr">
+      <div class="modal-num">${c.num}</div>
+      <div class="modal-hdr-mid"><div class="modal-title">${c.title}</div><div class="modal-period">${c.period}</div></div>
+      <div class="modal-tag">${c.tag}</div>
+    </div>
+    <div class="modal-cols">
+      <div class="modal-col">
+        <div class="m-lbl">The Project</div>
+        <p class="m-product">${c.product}</p>
+        <div class="m-lbl">Result</div>
+        <p class="m-result">${c.result}</p>
+      </div>
+      <div class="modal-col">
+        <div class="m-lbl">My Role</div>
+        <ul class="m-assign">${aHTML}</ul>
+      </div>
+    </div>${vHTML}`;
+  const o=document.getElementById('modal');
+  o.classList.add('open');o.scrollTop=0;document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function handleOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+document.addEventListener('mousemove',e=>{
+  dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+});
+document.querySelectorAll('a,.cases-featured,.case-card-sm,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+renderCases();
+</script>
+</body>
+</html>
