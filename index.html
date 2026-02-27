@@ -133,7 +133,7 @@ footer span{font-size:0.82rem;color:var(--mid);letter-spacing:0.08em}
 .m-assign li:first-child{border-top:1px solid var(--border)}
 .m-assign strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:0.35rem}
 .m-assign p{font-size:1.05rem;line-height:1.75;font-weight:300;color:var(--mid)}
-.m-vids{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.35rem}
+.m-vids{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1.5rem}
 .m-vid{font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text);text-decoration:none;background:var(--accent);padding:0.45rem 0.9rem;transition:all 0.15s;font-weight:700;white-space:nowrap}
 .m-vid:hover{background:var(--text);color:var(--bg)}
 
@@ -392,7 +392,7 @@ function openModal(i){
     <div class="modal-hdr">
       <div class="modal-num">${c.num}</div>
       <div class="modal-hdr-mid"><div class="modal-title">${c.title}</div><div class="modal-period">${c.period}</div></div>
-      <div class="modal-hdr-right"><div class="modal-tag">${c.tag}</div>${vHTML}</div>
+      <div class="modal-hdr-right"><div class="modal-tag">${c.tag}</div></div>
     </div>
     <div class="modal-cols">
       <div class="modal-col">
@@ -400,6 +400,7 @@ function openModal(i){
         <p class="m-product">${c.product}</p>
         <div class="m-lbl">Result</div>
         <p class="m-result">${c.result}</p>
+        ${vHTML}
       </div>
       <div class="modal-col">
         <div class="m-lbl">My Role</div>
