@@ -140,6 +140,24 @@ footer span{font-size:0.82rem;color:var(--mid);letter-spacing:0.08em}
 
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
+/* PORTRAIT — video trigger */
+.hero-right{cursor:pointer}
+.hero-right:focus{outline:2px solid var(--accent);outline-offset:2px}
+.portrait-veil{position:absolute;inset:0;background:rgba(10,10,8,0);transition:background 0.35s;pointer-events:none;z-index:1}
+.hero-right:hover .portrait-veil{background:rgba(10,10,8,0.32)}
+.portrait-play{position:absolute;bottom:2rem;right:2rem;width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;transition:transform 0.22s ease-out,box-shadow 0.22s;z-index:2;pointer-events:none}
+.hero-right:hover .portrait-play{transform:scale(1.12);box-shadow:0 0 0 10px rgba(196,255,60,0.18)}
+.portrait-play svg{width:20px;height:20px;margin-left:3px}
+
+/* VIDEO MODAL */
+.video-overlay{position:fixed;inset:0;z-index:2000;background:rgba(10,10,8,0.92);opacity:0;pointer-events:none;transition:opacity 0.22s ease-out;display:flex;align-items:center;justify-content:center;padding:2rem;overflow:auto}
+.video-overlay.open{opacity:1;pointer-events:auto}
+.video-box{width:100%;max-width:900px;aspect-ratio:16/9;position:relative;transform:scale(0.96);transition:transform 0.28s ease-out;flex-shrink:0}
+.video-overlay.open .video-box{transform:scale(1)}
+.video-box iframe{width:100%;height:100%;border:none;display:block}
+.video-close{position:fixed;top:0;right:0;font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:var(--text);color:var(--bg);border:none;padding:1rem 1.5rem;cursor:pointer;z-index:2010;transition:background 0.15s}
+.video-close:hover{background:#333}
+
 /* =====================================================
    MOBILE
    ===================================================== */
@@ -184,6 +202,11 @@ footer span{font-size:0.82rem;color:var(--mid);letter-spacing:0.08em}
   /* FOOTER */
   footer{padding:1.25rem;gap:0.35rem}
   footer span{font-size:0.75rem}
+
+  /* PORTRAIT PLAY */
+  .portrait-play{width:52px;height:52px;bottom:1.25rem;right:1.25rem}
+  .video-overlay{padding:0}
+  .video-box{aspect-ratio:16/9}
 
   /* MODAL */
   .modal-overlay{padding:0}
@@ -234,8 +257,12 @@ footer span{font-size:0.82rem;color:var(--mid);letter-spacing:0.08em}
       </div>
     </div>
   </div>
-  <div class="hero-right">
+  <div class="hero-right" onclick="openVideo()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openVideo()" aria-label="Play intro video">
     <img src="images/denny.jpg" class="hero-portrait" alt="Denny Hultén" style="object-position:43% top">
+    <div class="portrait-veil"></div>
+    <div class="portrait-play">
+      <svg viewBox="0 0 24 24" fill="var(--text)"><polygon points="6,3 20,12 6,21"/></svg>
+    </div>
   </div>
 </section>
 
@@ -283,6 +310,11 @@ footer span{font-size:0.82rem;color:var(--mid);letter-spacing:0.08em}
 <footer>
   <span>Denny Hultén · Creative Director</span>
 </footer>
+
+<div class="video-overlay" id="video-modal" onclick="handleVideoOverlayClick(event)">
+  <button class="video-close" onclick="closeVideo()">✕ Close</button>
+  <div class="video-box" id="video-box"></div>
+</div>
 
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal-box" id="modal-box">
@@ -413,7 +445,25 @@ function openModal(i){
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
 function handleOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// ── INTRO VIDEO ──────────────────────────────────────
+// TODO: replace with your actual YouTube video ID
+// e.g. for https://youtu.be/dQw4w9WgXcQ the ID is dQw4w9WgXcQ
+const INTRO_VIDEO_ID='YOUTUBE_VIDEO_ID';
+
+function openVideo(){
+  document.getElementById('video-box').innerHTML=`<iframe src="https://www.youtube.com/embed/${INTRO_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeVideo(){
+  document.getElementById('video-modal').classList.remove('open');
+  document.getElementById('video-box').innerHTML='';
+  document.body.style.overflow='';
+}
+function handleVideoOverlayClick(e){if(e.target===document.getElementById('video-modal'))closeVideo();}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeVideo();}});
 
 renderCases();
 </script>
